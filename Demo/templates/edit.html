@@ -1,29 +1,36 @@
-<doctype html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Flask Music Database</title>
+    <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+    th {
+      text-align: center;
+    }
+    td {
+      text-align: right;
+    }
+    </style>
+    <title>Table Results</title>
 </head>
-
-<h2>Flask Music Database</h2>
-
-<p><p>
-<a href="{{ url_for('.new_album') }}"> New Album </a>
-
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-
-{% from "_formhelpers.html" import render_field %}
-<form method=post>
-  <dl>
-    {{ render_field(form.select) }}
-    <p>
-    {{ render_field(form.search) }}
-  </dl>
-  <p><input type=submit value=Search>
+<h2>User Login</h2>
+<form action="{{url}}" method="POST">
+  <label for="sortBy">Sort By</label>
+  <input type="text" name="sortBy" required>
+  <button type="submit">Sort It!</button>
 </form>
+<table style="width:auto">
+  <tr>
+    {% for name in headers %}
+    <th> {{name}} </th>
+    {% endfor %}
+  </tr>
+{% for row in data %}
+<tr>
+  {% for column in row %}
+    <td>{{column}}</td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
